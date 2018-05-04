@@ -1,5 +1,5 @@
-import numpy as np
 from PIL import Image
+import numpy as np
 import h5py
 import json
 import os
@@ -26,7 +26,7 @@ gray_png = img_array_to_png(get_gray_image())
 
 class LHImages:
     def __init__(self):
-        self.images_file = os.path.join("color_natims_images.hdf")
+        self.images_file = os.path.join(data_dir, "color_natims_images.hdf")
         self.hdf_file = h5py.File(self.images_file)
         self.train_len = self.hdf_file['est'].shape[-1]
         self.test_len = self.hdf_file['val'].shape[-1]
@@ -130,7 +130,7 @@ class ImageTagger:
         if tag_names is None:
             tag_names = list(self.tag_specs.keys())
         if tag_filename is None:
-            tag_filename = self.tag_filename or ~os.path.expanduser("~/LH_tags.json")
+            tag_filename = self.tag_filename or os.path.expanduser("~/LH_tags.json")
             
         if os.path.exists(tag_filename):
             tag_file_content = json.load(open(tag_filename, 'r'))
@@ -202,7 +202,7 @@ class ImageTagger:
         self.progress_bar.value = num_tagged
         
         remaining = len(self.tag_indices) * tagged.shape[0] - num_tagged
-        self.remaining_label.value = f"{remaining} remaining" if remaining else "DONE"
+        self.remaining_label.value = "{remaining} remaining".format(remaining=remaining) if remaining else "DONE"
         
 
     
