@@ -1,7 +1,7 @@
 # Utility functions
 
 import numpy as np
-
+from . import fmri
 
 def column_corr(A, B, dof=0):
     """Efficiently compute correlations between columns of two matrices
